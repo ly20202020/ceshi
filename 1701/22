@@ -70,11 +70,11 @@ namespace MuEditor
                 {
                     if (!Validator.UserName(this.txtAccount.Text.Trim()))
                     {
-                        Utils.WarningMessage("错误：帐号名必须为4-10个字符，且只能包含数字、字母或下划线。");
+                        Utils.WarningMessage("Error: Account names must be between 4-10 characters, and only contain numbers, letters or underscores.");
                     }
                     else if (!Validator.PassWord(this.txtPwd.Text.Trim()))
                     {
-                        Utils.WarningMessage("错误：密码必须为4-10个字符。");
+                        Utils.WarningMessage("Error: Passwords must be between 4-10 characters.");
                     }
                     else
                     {
@@ -82,30 +82,29 @@ namespace MuEditor
                         OleDbDataReader reader = new OleDbCommand(format, frmBase.Me_Conn).ExecuteReader();
                         if (reader.Read())
                         {
-                            Utils.WarningMessage("错误：帐号 [" + this.txtAccount.Text.Trim() + "] 已存在。");
+                            Utils.WarningMessage("Error: The account [" + this.txtAccount.Text.Trim() + "] already exists.");
                             reader.Close();
                         }
                         else
                         {
                             reader.Close();
                             object[] args = new object[] { this.txtAccount.Text.Trim(), this.txtPwd.Text.Trim(), this.txtAccount.Text.Trim() + "@email.pl", 0, 1 };
-                            format = string.Format("INSERT INTO dbo.MEMB_INFO(memb___id, memb__pwd, memb_name, sno__numb, mail_addr, fpas_ques, fpas_answ, job__code, mail_chek, bloc_code, ctl1_code, appl_days, modi_days, out__days, true_days) VALUES ('{0}', '{1}', 'EMU', '000000000000000000', '{2}', 'wenti', 'daan', '1', '1', '0', '1', GETDATE(), GETDATE(), GETDATE(), GETDATE())", args);
-                            //format = string.Format("INSERT INTO dbo.MEMB_INFO(memb___id, memb__pwd, memb_name, mail_addr, fpas_ques, fpas_answ, sno__numb, post_code, bloc_code, ctl1_code) VALUES ('{0}', '{1}', 'EMU','{2}', 'question', 'answer', 0, '{4}', 0, 0)", args);
+                            format = string.Format("INSERT INTO dbo.MEMB_INFO(memb___id, memb__pwd, memb_name, mail_addr, fpas_ques, fpas_answ, sno__numb, post_code, bloc_code, ctl1_code) VALUES ('{0}', '{1}', 'EMU','{2}', 'question', 'answer', 0, '{4}', 0, 0)", args);
                             //format = string.Format("DECLARE @Result_Data tinyint; EXEC [dbo].[CreateAccount] @memb___id = N'{0}',@membwebid = N'{0}', @memb__pwd = N'{1}', @mail_addr = N'{2}', @Area_Code = {4}, @Result_Data = @Result_Data OUTPUT; SELECT @Result_Data as N'@Result_Data'", args);
                             if (base.Me_ExecuteSQL(format))
                             {
-                                Utils.InfoMessage("帐号创建成功。");
+                                Utils.InfoMessage("Account created.");
                             }
                             else
                             {
-                                Utils.WarningMessage("错误：帐号创建失败！");
+                                Utils.WarningMessage("Error: Account creation failed.");
                             }
                         }
                     }
                 }
                 catch (Exception exception)
                 {
-                    Utils.WarningMessage("SQL：" + format + "\n错误：" + exception.Message + "\n来源：" + exception.Source + "\n堆栈跟踪：" + exception.StackTrace);
+                    Utils.WarningMessage("SQL：" + format + "\nError:" + exception.Message + "\nSource:" + exception.Source + "\nTrace:" + exception.StackTrace);
                 }
             }
         }
@@ -134,8 +133,8 @@ namespace MuEditor
 		}
 
 		private void InitializeComponent()
-		{
-			this.components = new System.ComponentModel.Container();
+        {
+            this.components = new System.ComponentModel.Container();
 			this.label3 = new Label();
 			this.txtAccount = new MuEditor.TextBox();
 			this.label1 = new Label();
@@ -157,7 +156,7 @@ namespace MuEditor
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(41, 12);
 			this.label3.TabIndex = 1;
-            this.label3.Text = "帐号:";
+            this.label3.Text = "Account:";
 			this.txtAccount.IsOnlyNumber = false;
 			this.txtAccount.Location = new Point(67, 15);
 			this.txtAccount.MaxLength = 15;
@@ -170,7 +169,7 @@ namespace MuEditor
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(41, 12);
 			this.label1.TabIndex = 3;
-            this.label1.Text = "密码:";
+            this.label1.Text = "Password:";
 			this.txtPwd.IsOnlyNumber = false;
 			this.txtPwd.Location = new Point(67, 42);
 			this.txtPwd.MaxLength = 10;
@@ -183,7 +182,7 @@ namespace MuEditor
 			this.btnOK.Name = "btnOK";
 			this.btnOK.Size = new System.Drawing.Size(51, 21);
 			this.btnOK.TabIndex = 10;
-            this.btnOK.Text = "创建";
+            this.btnOK.Text = "Create";
 			this.btnOK.UseVisualStyleBackColor = true;
 			this.btnOK.Click += new EventHandler(this.btnOK_Click);
 			this.btnClear.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -191,7 +190,7 @@ namespace MuEditor
 			this.btnClear.Name = "btnClear";
 			this.btnClear.Size = new System.Drawing.Size(51, 21);
 			this.btnClear.TabIndex = 11;
-			this.btnClear.Text = "清除";
+			this.btnClear.Text = "Clear";
 			this.btnClear.UseVisualStyleBackColor = true;
 			this.btnClear.Click += new EventHandler(this.btnClear_Click);
 			this.btnClose.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -199,7 +198,7 @@ namespace MuEditor
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(51, 21);
 			this.btnClose.TabIndex = 12;
-			this.btnClose.Text = "关闭";
+			this.btnClose.Text = "Close";
 			this.btnClose.UseVisualStyleBackColor = true;
 			this.btnClose.Click += new EventHandler(this.btnClose_Click);
 			this.groupBox1.Controls.Add(this.label2);
@@ -240,7 +239,7 @@ namespace MuEditor
 			base.ShowIcon = false;
 			base.ShowInTaskbar = false;
 			base.StartPosition = FormStartPosition.CenterParent;
-			this.Text = "创建新帐号";
+			this.Text = "Create new account";
 			base.FormClosed += new FormClosedEventHandler(this.frmUserAdd_FormClosed);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
